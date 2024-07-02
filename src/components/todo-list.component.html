@@ -1,0 +1,45 @@
+<div class="todo-list">
+  <h1>TO-DOS</h1>
+
+  <div class="add-todo">
+    <input
+      type="text"
+      [(ngModel)]="newTaskTitle"
+      placeholder="Add a new task..."
+      (keyup.enter)="addTask()"
+    />
+    <button (click)="addTask()">
+      <span class="material-symbols-rounded">add</span>
+    </button>
+  </div>
+
+  <ul class="todo-items">
+    <li *ngFor="let item of todoItems" [class.completed]="item.completed">
+      <div class="todo-item">
+        <input
+          type="checkbox"
+          [checked]="item.completed"
+          (change)="toggleComplete(item)"
+        />
+        <span class="todo-title">{{ item.title }}</span>
+        <button class="add-sub-todo" (click)="addSubTask(item)">
+          <span class="material-symbols-rounded">add</span>
+        </button>
+      </div>
+
+      <ul class="sub-todos" *ngIf="item.subTodos && item.subTodos.length">
+        <li
+          *ngFor="let subItem of item.subTodos"
+          [class.completed]="subItem.completed"
+        >
+          <input
+            type="checkbox"
+            [checked]="subItem.completed"
+            (change)="toggleComplete(subItem)"
+          />
+          <span class="todo-title">{{ subItem.title }}</span>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
